@@ -38,7 +38,8 @@ public class Recursion{
     else if(n == 0){
       return 0;
     }
-    else if(((n - (guess * guess)) / n) < 0.001 && (((n - (guess * guess)) / n) >= 0)) {
+    else if(((n - (guess * guess)) / n) < 0.001 && (((n - (guess * guess)) / n) >= 0) ||
+    ((n - (guess * guess)) / n) > -0.001 && (((n - (guess * guess)) / n) < 0)) {
       return guess;
     }
     else{
