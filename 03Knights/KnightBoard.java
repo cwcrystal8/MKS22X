@@ -104,7 +104,7 @@ public class KnightBoard{
   }
 
   public static void main(String[] args){
-    KnightBoard a = new KnightBoard(3,3);
+  /*  KnightBoard a = new KnightBoard(3,3);
 
     System.out.println(a);
     /* Prints
@@ -201,6 +201,13 @@ public class KnightBoard{
 
     KnightBoard d = new KnightBoard(5,5);
     System.out.println(d.countSolutions(0,0)); //prints 304
+*/
 
+    for(int i = 0; i < 4; i++){
+      for (int j = 0; j < 4; j++){
+        KnightBoard e = new KnightBoard(3,4);
+        System.out.println(e.solve(i,j));
+      }
+    }
   }
 }
