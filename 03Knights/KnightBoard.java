@@ -103,15 +103,15 @@ public class KnightBoard{
     return sol;
   }
 
-  public static void main(String[] args){
-  /*  KnightBoard a = new KnightBoard(3,3);
+  /*public static void main(String[] args){
+    KnightBoard a = new KnightBoard(3,3);
 
     System.out.println(a);
     /* Prints
       _ _ _
       _ _ _
       _ _ _
-    */
+
 
     for (int i = 0; i < 3; i++){
       for (int j = 0; j < 3; j++){
@@ -201,7 +201,6 @@ public class KnightBoard{
 
     KnightBoard d = new KnightBoard(5,5);
     System.out.println(d.countSolutions(0,0)); //prints 304
-*/
 
     for(int i = 0; i < 4; i++){
       for (int j = 0; j < 4; j++){
@@ -209,5 +208,6 @@ public class KnightBoard{
         System.out.println(e.solve(i,j));
       }
     }
-  }
+
+  }*/
 }
