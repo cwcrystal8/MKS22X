@@ -1,7 +1,6 @@
 public class Merge{
   public static void merge(int[] data, int[] temp, int lo1, int hi1, int lo2, int hi2){
-    int lo = lo1, hi = hi2;
-    for (int i = lo; i <= hi; i++){
+    for (int i = lo1; i <= hi2; i++){
       if (lo1 <= hi1 && (lo2 > hi2 || temp[lo1] < temp[lo2])){
         data[i] = temp[lo1];
         lo1++;
