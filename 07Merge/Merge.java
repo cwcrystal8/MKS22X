@@ -1,3 +1,6 @@
+import java.util.*;
+import java.util.Arrays;
+
 public class Merge{
   public static void merge(int[] data, int[] temp, int lo1, int hi1, int lo2, int hi2){
     for (int i = lo1; i <= hi2; i++){
@@ -30,12 +33,20 @@ public class Merge{
   }
 
   public static void main(String[] args){
-    int[] a = {1,9,6,8,4,2,7,3,5,0};
-    mergesort(a);
-    for (int i = 0; i < 10; i++){
-      System.out.print(a[i] + " ");
+    int[] a = new int[1000000];
+    for (int i = 0; i < 1000000; i++){
+      int temp = (int)(Math.random() * 1000000);
+      a[i] = temp;
     }
+    mergesort(a);
 
+    /*Arrays.sort(b);
+
+    for (int i = 0; i < 1000000; i++){
+      if (a[i] != b[i]){
+        System.out.println("There is a mismatch");
+      }
+    }*/
   }
 
 }
