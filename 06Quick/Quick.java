@@ -110,7 +110,7 @@ public class Quick{
 
  public static void main(String[] args){
 
-   for (int i = 0; i < 12; i++){
+   /*for (int i = 0; i < 12; i++){
      int[] ary = {2,10,15,23,0,5,5,5,5,5,5,5};
      System.out.println(Quick.quickselect(ary,i));
    }
@@ -119,7 +119,26 @@ public class Quick{
    Quick.quicksort(ary);
    for (int i = 0; i < ary.length; i++){
      System.out.print(ary[i] + " ");
+   }*/
+
+   int[] a = new int[1000000], b = new int[1000000];
+   for (int i = 0; i < 1000000; i++){
+     int temp = (int)(Math.random() * 1000000);
+     a[i] = temp;
+     b[i] = temp;
    }
+
+   Quick.quicksort(a);
+   Arrays.sort(b);
+
+   for (int i = 0; i < 1000000; i++){
+     if (a[i] != b[i]){
+       System.out.println("There is a mismatch");
+     }
+   }
+
+
+
  }
 
 }
