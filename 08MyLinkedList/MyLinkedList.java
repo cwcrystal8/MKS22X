@@ -20,21 +20,30 @@ public class MyLinkedList{
 	}
 
 	private Integer getData(){
+	    return data;
 	}
 
-	private boolean setData(){
+	private boolean setData(Integer a){
+	    data = a;
+	    return true;
 	}
 
 	private Node getNextNode(){
+	    if(next != null){
+		return next;
+	    }
+	    return null;
 	}
 
-	private boolean 
+	private boolean setNextNode(Node a){
+	    next = a;
+	    return true;
+	}
+
+	private String toString(){
+	    return "[data: " + data + "]";
+	}
 	
     }
-
-
-
-
-
     
 }
