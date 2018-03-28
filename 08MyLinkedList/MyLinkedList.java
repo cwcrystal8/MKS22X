@@ -10,9 +10,25 @@ public class MyLinkedList{
 	private Integer data;
 	private Node next;
 
-	private Node(){
+	private Node(Integer value){
+	    data = value;
 	}
 
+	private Node(Integer value, Node nextNode){
+	    Node(value);
+	    next = nextNode;
+	}
+
+	private Integer getData(){
+	}
+
+	private boolean setData(){
+	}
+
+	private Node getNextNode(){
+	}
+
+	private boolean 
 	
     }
 
