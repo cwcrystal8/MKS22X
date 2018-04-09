@@ -19,8 +19,10 @@ public class MyLinkedList{
 
   public String toString(){
     String ans = "{ ";
+    Node temp = start;
     for (int i = 0; i < size; i++){
-      ans += getNode(i).toString() + " ";
+      ans += temp.toString() + " ";
+      temp = temp.getNextNode();
     }
     return ans + "}";
   }
@@ -69,10 +71,12 @@ public class MyLinkedList{
     }
     getNode(size - 1).setNextNode(new Node(newData));
     size++;
+    Node temp = end;
     end = getNode(size - 1);
-
+    end.setPrevNode(temp);
     return true;
   }
+
   public void add(int index, Integer value){
     if(index > size || index < 0){
       throw new IndexOutOfBoundsException();
@@ -89,7 +93,10 @@ public class MyLinkedList{
     else{
       Node temp = getNode(index);
       getNode(index - 1).setNextNode(new Node(value));
-      getNode(index).setNextNode(temp);
+      Node newer = getNode(index);
+      newer.setNextNode(temp);
+      temp.setPrevNode(newer);
+      newer.setPrevNode(getNode(index - 1));
       size++;
     }
   }//exceptions!
@@ -98,53 +105,43 @@ public class MyLinkedList{
   //use an int as the data, we need objects to distinguish between index and data
   public boolean remove(Integer value){
     int index = indexOf(value);
-    /*if(index != -1){
-      if(index == 0){
-        start = getNode(1);
-        size--;
-      }
-      if(index == size - 1){
-        end = getNode(size - 2);
-        end.setNextNode(null);
-      }
-    }*/
-    return remove(index);
-
-  /*  for (int i = 0; i < size; i++){
-      if (getNode(i).getData().equals(value)){
-        getNode(i - 1).setNextNode(getNode(i+1));
-        size--;
-        return true;
-      }
+    if(index != -1){
+      remove(index);
+      return true;
     }
-    return false;*/
+    return false;
   }
 
-  public boolean remove(int index){
+  public Integer remove(int index){
     if(index < 0 || index >= size){
       throw new IndexOutOfBoundsException();
     }
+    Integer ans = get(index);
     if(size == 1){
       start = null;
       end = null;
     }
     else if(index == 0){
       start = getNode(1);
+      start.setPrevNode(null);
     }
     else if(index == size - 1){
       end = getNode(size - 2);
       end.setNextNode(null);
     }
     else{
-      getNode(index - 1).setNextNode(getNode(index + 1));
+      Node previous = getNode(index - 1), next = getNode(index + 1);
+      previous.setNextNode(next);
+      next.setPrevNode(previous);
     }
     size--;
-    return true;
+    return ans;
   }//exceptions!
 
   private class Node{
     private Integer data;
     private Node next;
+    private Node prev;
 
     public Node(Integer value){
       data = value;
@@ -166,10 +163,24 @@ public class MyLinkedList{
        }
        return null;
      }
+
+     public Node getPrevNode(){
+        if(prev != null){
+          return prev;
+        }
+        return null;
+     }
+
      public boolean setNextNode(Node a){
        next = a;
        return true;
      }
+
+     public boolean setPrevNode(Node a){
+       prev = a;
+       return true;
+     }
+
      public String toString(){
        return "[" + data + "]";
      }
@@ -184,69 +195,65 @@ public class MyLinkedList{
      for (int i = 0; i < 10; i++){
        a.add(new Integer(i));
        System.out.println("size: " + a.size() + " LinkedList: " + a.toString());
-     }
+     } //adds the integers from 0 to 9 inclusive and prints out the LinkedList
+
+     System.out.println("\nTesting get(int index)");
+     for (int i = 0; i < 10; i++){
+       System.out.println("index: " + i + " data: " + a.get(i));
+     } //prints the integers from 0 to 9 inclusive
+
+     System.out.println("\nTesting exception for get(int index)");
+     try{
+       System.out.println(a.get(10));
+       System.out.println(a.size());
+     }catch(IndexOutOfBoundsException e){
+       System.out.println("This size is out of bounds");
+     } //prints "This size is out of bounds"
+     try{
+       System.out.println(a.get(-1));
+     }catch(IndexOutOfBoundsException e){
+       System.out.println("This size is out of bounds");
+     } //prints "This size is out of bounds"
 
      for (int i = 0; i < 10; i++){
        a.add(new Integer(i));
      }
 
-     System.out.println("\nTesting get(int index)");
-     for (int i = 0; i < 10; i++){
-       System.out.println("index: " + i + " " + a.get(i));
-     }
-
-     System.out.println("\nTesting exception for get(int index)");
-     try{
-       System.out.println(a.get(10));
-     }catch(IndexOutOfBoundsException e){
-       System.out.println("This size is out of bounds");
-     }
-     try{
-       System.out.println(a.get(-1));
-     }catch(IndexOutOfBoundsException e){
-       System.out.println("This size is out of bounds");
-     }
-
      System.out.println("\nTesting indexOf(Integer value)");
      for (int i = 0; i < 10; i++){
        System.out.println("Value: " + i + " Index: " + a.indexOf(i));
-     }
+     } //prints 0 to 9 inclusive
 
      System.out.println("\nTesting remove(Integer value)");
      for(int i = 0; i < 10; i++){
        a.remove(new Integer(i));
        System.out.println(a);
-     }
-
-     System.out.println("\nTesting get(int index)");
-     for(int i = 0; i < 10; i++){
-       System.out.println(a.get(i));
-     }
+     } //removes first half of the LinkedList
 
      System.out.println("\nTesting set(int index, Integer value)");
      for (int i = 0; i < 10; i++){
        a.set(i, new Integer(i * 10));
        System.out.println(a);
-     }
+     } //sets the data of each node to 10 * index
 
      System.out.println("\nTesting exceptions for set(int index, Integer value)");
      try{
        System.out.println(a.set(-1, new Integer(1)));
      }catch(IndexOutOfBoundsException e){
        System.out.println("This size is out of bounds");
-     }
+     } //prints "This size is out of bounds"
      try{
        System.out.println(a.set(10, new Integer(1)));
      }catch(IndexOutOfBoundsException e){
        System.out.println("This size is out of bounds");
-     }
+     } //prints "This size is out of bounds"
 
      System.out.println("\nTesing add(int index, Integer value)");
      for (int i = 0; i < 9; i++){
        a.add(i, new Integer(i * 3));
        System.out.println("index added: " + i + " LinkedList: " + a.toString());
-     }
-     a.add(19, new Integer(100));
+     } //adds multiples of 3 up to 24 to the LinkedList at the beginning
+     a.add(19, new Integer(100)); //adds 100 to the LinkedList at the end
      System.out.println("index added: " + 19 + " LinkedList: " + a.toString());
 
      System.out.println("\nTesting exceptions for add(int index, Integer value)");
@@ -254,35 +261,36 @@ public class MyLinkedList{
        a.add(-1, new Integer(5));
      }catch(IndexOutOfBoundsException e){
        System.out.println("This size is out of bounds");
-     }
+     } //prints "This size is out of bounds"
      try{
-       a.add(20, new Integer(5));
+       a.add(21, new Integer(5));
      }catch(IndexOutOfBoundsException e){
        System.out.println("This size is out of bounds");
-     }
+     } //prints "This size is out of bounds"
 
      System.out.println("\nTesting remove(int index)");
-     a.remove(0);
-     System.out.println(a);
-     a.remove(a.size() - 1);
-     System.out.println(a);
-     a.remove(2);
-     System.out.println(a);
+     System.out.println("Original LinkedList: " + a.toString());
+     System.out.println("data removed: " + a.remove(0) + " index removed: 0"); //removes 0
+     System.out.println("LinkedList: " + a.toString());
+     System.out.println("data removed: " + a.remove(a.size() - 1) + " index removed: 18"); //removes 100
+     System.out.println("LinkedList: " + a.toString());
+     System.out.println("data removed: " + a.remove(2) + " index removed: 2 "); //removes 9
+     System.out.println("LinkedList: " + a.toString());
 
      System.out.println("\nTesting exceptions for remove(int index)");
      try{
        System.out.println(a.remove(-1));
      }catch(IndexOutOfBoundsException e){
        System.out.println("This size is out of bounds");
-     }
+     } //prints "This size is out of bounds"
      try{
        System.out.println(a.remove(17));
      }catch(IndexOutOfBoundsException e){
        System.out.println("This size is out of bounds");
-     }
+     } //prints "This size is out of bounds"
 
      System.out.println("\nTesting clear()");
      a.clear();
-     System.out.println(a);
+     System.out.println("LinkedList: " + a.toString()); //prints an empty LinkedList
    }
 }
