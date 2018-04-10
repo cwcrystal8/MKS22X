@@ -69,10 +69,11 @@ public class MyLinkedList{
       size++;
       return true;
     }
-    getNode(size - 1).setNextNode(new Node(newData));
+    Node a = new Node(newData);
+    end.setNextNode(a);
     size++;
     Node temp = end;
-    end = getNode(size - 1);
+    end = a;
     end.setPrevNode(temp);
     return true;
   }
