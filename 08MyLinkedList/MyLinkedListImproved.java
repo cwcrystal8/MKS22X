@@ -167,6 +167,24 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     return index;
   }
 
+  public void extend(MyLinkedListImproved<T> other){
+    if(other.size() != 0){
+      if(this.size() == 0){
+        start = other.start;
+        end = other.end;
+        size += other.size();
+        other.clear();
+      }
+      else{
+        this.end.setNextNode(other.start);
+        other.start.setPrevNode(this.end);
+        end = other.end;
+        size += other.size();
+        other.clear();
+      }
+    }
+  }
+
   public class Node{
     private T data;
     private Node next;
@@ -347,6 +365,19 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
      System.out.println("\n" + a.max());
      System.out.println(a.min());
+
+     MyLinkedListImproved<Integer> b = new MyLinkedListImproved<>();
+     b.add(5);
+     b.add(2);
+     b.add(100);
+     a.extend(b);
+
+     System.out.println(a);
+     System.out.println(b);
+
+     b.extend(a);
+     System.out.println(a);
+     System.out.println(b);
 
      System.out.println("\nTesting clear()");
      a.clear();
