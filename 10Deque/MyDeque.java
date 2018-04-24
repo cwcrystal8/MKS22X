@@ -204,6 +204,5 @@ public class MyDeque<E>{
     else{
       System.out.println("Your deque is bug-free!");
     }
-
   }
 }
