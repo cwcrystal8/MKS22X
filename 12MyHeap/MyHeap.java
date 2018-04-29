@@ -58,31 +58,37 @@ public class MyHeap{
     int pos = 0;
     size--;
     while( ((2 * pos + 1 < size) &&
-          ((data[pos].compareTo(data[2 * pos + 1]) < 0 ||
-          ( (2 * pos + 2 < size) && data[pos].compareTo(data[2 * pos + 2]) < 0) && !(isMin))) ) ||
+          ((data[pos].compareTo(data[2 * pos + 1]) < 0 && !(isMin)) ||
+          (( (2 * pos + 2 < size) && data[pos].compareTo(data[2 * pos + 2]) < 0) && !(isMin)) ) ) ||
 
           ( (2 * pos + 1 < size) &&
-          ((data[pos].compareTo(data[2 * pos + 1]) > 0 ||
-          ((2 * pos + 2 < size) && data[pos].compareTo(data[2 * pos + 2]) > 0) && isMin)) ) ) {
+          ((data[pos].compareTo(data[2 * pos + 1]) > 0 && isMin) ||
+          (((2 * pos + 2 < size) && data[pos].compareTo(data[2 * pos + 2]) > 0) && isMin)) ) ) {
 
             /*System.out.println("pos: " + pos + " " + data[pos]);
             System.out.println("next move: " + (2 * pos + 1) + " " + data[2 * pos + 1]);
             System.out.println("size: " + size);
             System.out.println(Arrays.toString(data));
-            System.out.println(data[pos].compareTo(data[2 * pos + 1]));*/
+            System.out.println(data[pos].compareTo(data[2 * pos + 1]));
 
-            System.out.println("\n");
-            System.out.println(this);
-            System.out.println("pos: " + pos);
-            System.out.println("comparing left and right: " + data[2 * pos + 1].compareTo(data[2 * pos + 2]));
-
-            if((2 * pos + 2 == size) || ((data[2 * pos + 1].compareTo(data[2 * pos + 2]) > 0 && !(isMin) && (data[pos].compareTo(data[2 * pos + 1]) < 0)) ||
-               (data[2 * pos + 1].compareTo(data[2 * pos + 2]) < 0 && isMin && (data[pos].compareTo(data[2 * pos + 1]) > 0 )))) {
+            System.out.println("data: " + this);
+            System.out.println("pos: " + pos);*/
+            //System.out.println("comparing left and right: " + data[2 * pos + 1].compareTo(data[2 * pos + 2]));
+            if(2 * pos + 2 == size && ( !(isMin) && (data[pos].compareTo(data[2 * pos + 1]) < 0) ||  (isMin && (data[pos].compareTo(data[2 * pos + 1]) > 0 )))) {
               String temp = data[2 * pos + 1];
               data[2 * pos + 1] = data[pos];
               data[pos] = temp;
               pos = 2 * pos + 1;
-            }else{
+            }
+            else if((2 * pos + 2 < size) &&
+              (data[2 * pos + 1].compareTo(data[2 * pos + 2]) >= 0 && !(isMin) && (data[pos].compareTo(data[2 * pos + 1]) < 0)) ||
+              (data[2 * pos + 1].compareTo(data[2 * pos + 2]) <= 0 && isMin && (data[pos].compareTo(data[2 * pos + 1]) > 0 )) )  {
+              String temp = data[2 * pos + 1];
+              data[2 * pos + 1] = data[pos];
+              data[pos] = temp;
+              pos = 2 * pos + 1;
+            }else if( (!(isMin)  && data[pos].compareTo(data[2 * pos + 2]) < 0 ) ||
+                      (data[pos].compareTo(data[2 * pos + 2]) > 0  && isMin)) {
               String temp = data[2 * pos + 2];
               data[2 * pos + 2] = data[pos];
               data[pos] = temp;
@@ -91,8 +97,8 @@ public class MyHeap{
             // if((data[2 * pos + 1].compareTo(data[2 * pos + 2]) < 0 && !(isMin)) ||
                      //(data[2 * pos + 1].compareTo(data[2 * pos + 2]) > 0 && isMin))
     }
-    System.out.println("\n");
-    System.out.println("final version:" + this);
+    //System.out.println("\n");
+    //System.out.println("final version:" + this);
     return ans;
   }
 
@@ -109,7 +115,12 @@ public class MyHeap{
     for(int i = 0; i < size; i++){
       ans += data[i] + ", ";
     }
-    return ans.substring(0, ans.length() - 2) + "]";
+    if(size > 0){
+      return ans.substring(0, ans.length() - 2) + "]";
+    }
+    else{
+      return "[]";
+    }
   }
 
   public static void main(String[] args) {
@@ -128,8 +139,9 @@ public class MyHeap{
     System.out.println("Arrays: "+ Arrays.toString(b));
 
     for(int i = 0; i < 20; i++){
+      //System.out.println("size: " + a.size());
+      //System.out.println("heap before: " + a.toString());
       String temp = a.remove();
-      System.out.println("size: " + a.size());
       if(!(temp.equals(b[i]))){
         System.out.println("there is an error");
         System.out.println(temp);
