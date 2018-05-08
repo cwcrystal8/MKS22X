@@ -24,44 +24,48 @@ public class MazeSolver{
     else if(mode == 1){
       frontier = new FrontierStack();
     }
-      frontier.add(maze.getStart());
-      //System.out.println("end: " + maze.getEnd());
-      //System.out.println(frontier);
-      //System.out.println(frontier);
-      while(frontier.hasNext()){
-
-        Location temp = frontier.next();
-        char[][] board = maze.getBoard();
-
-        Location[] nextOnes = maze.getNeighbors(temp);
-        for(int i = 0; i < 4; i++){
-          if(nextOnes[i] != null){
-            if(nextOnes[i].getX() == maze.getEnd().getX() &&
-              nextOnes[i].getY() == maze.getEnd().getY()){
-                Location current = nextOnes[i];
-                int x = current.getY(), j = current.getX();
-                while(board[x][j] != 'S'){
-                  board[x][j] = '@';
-                  current = current.getPrev();
-                  x = current.getY();
-                  j = current.getX();
-                }
-              //  System.out.println(maze);
-              return true;
-            }
-            else{
-              frontier.add(nextOnes[i]);
+    else if(mode == 2){
+      frontier = new FrontierPriorityQueue();
+    }
+    frontier.add(maze.getStart());
+    //System.out.println("end: " + maze.getEnd());
+    //System.out.println(frontier);
+    //System.out.println(frontier);
+    while(frontier.hasNext()){
+      Location temp = frontier.next();
+      char[][] board = maze.getBoard();
+      Location[] nextOnes = maze.getNeighbors(temp);
+      for(int i = 0; i < 4; i++){
+        if(nextOnes[i] != null){
+          if(nextOnes[i].getX() == maze.getEnd().getX() &&
+            nextOnes[i].getY() == maze.getEnd().getY()){
               Location current = nextOnes[i];
               int x = current.getY(), j = current.getX();
-              board[x][j] = '?';
-            }
+              while(board[x][j] != 'S'){
+                if(board[x][j] != 'E'){
+                  board[x][j] = '@';
+                }
+                current = current.getPrev();
+                x = current.getY();
+                j = current.getX();
+
+              }
+              System.out.println(maze);
+            return true;
+          }
+          else{
+            frontier.add(nextOnes[i]);
+            Location current = nextOnes[i];
+            int x = current.getY(), j = current.getX();
+            board[x][j] = '?';
           }
         }
-        if(board[temp.getY()][temp.getX()] != 'S'){
-          board[temp.getY()][temp.getX()] = '.';
-        }
-      //  System.out.println(frontier);
       }
+      if(board[temp.getY()][temp.getX()] != 'S'){
+        board[temp.getY()][temp.getX()] = '.';
+      }
+    //  System.out.println(frontier);
+    }
 
     //initialize your Frontier
     //while there is stuff in the frontier:
@@ -98,7 +102,7 @@ public class MazeSolver{
      System.exit(1);
    }
     MazeSolver a  = new MazeSolver(s);
-    System.out.println(a.solve());
+    System.out.println(a.solve(2));
   }
 
 }

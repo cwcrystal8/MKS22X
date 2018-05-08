@@ -1,4 +1,4 @@
-public class Location{
+public class Location implements Comparable<Location>{
   private int x,y;
   private Location previous;
 
@@ -26,5 +26,10 @@ public class Location{
 
   public String toString(){
     return "[" + x + ", " + y + "]";
+  }
+
+  public int compareTo(Location other){
+    return (int) Math.sqrt( (x * other.getX()) * (x * other.getX()) +
+                      (y * other.getY()) * (y * other.getY()));
   }
 }
