@@ -57,6 +57,6 @@ public class RunningMedians{
     System.out.println(a.getMedian()); //3.5
     a.add(1.0);
     a.add(1.0);
-    System.out.println(a.getMedian()); 
+    System.out.println(a.getMedian());//2.5
   }
 }
