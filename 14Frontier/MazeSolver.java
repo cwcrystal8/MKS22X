@@ -20,6 +20,10 @@ public class MazeSolver{
   public boolean solve(int mode){
     if(mode == 0){
       frontier = new FrontierQueue();
+    }
+    else if(mode == 1){
+      frontier = new FrontierStack();
+    }
       frontier.add(maze.getStart());
       //System.out.println("end: " + maze.getEnd());
       //System.out.println(frontier);
@@ -42,7 +46,7 @@ public class MazeSolver{
                   x = current.getY();
                   j = current.getX();
                 }
-                System.out.println(maze);
+              //  System.out.println(maze);
               return true;
             }
             else{
@@ -58,7 +62,7 @@ public class MazeSolver{
         }
       //  System.out.println(frontier);
       }
-    }
+
     //initialize your Frontier
     //while there is stuff in the frontier:
         //get the next Location
@@ -88,7 +92,7 @@ public class MazeSolver{
      while(in.hasNext()){
        s+= in.nextLine() + "\n";
      }
-     System.out.println(s);
+  //   System.out.println(s);
    }catch(FileNotFoundException e){
      System.out.println("File not found");
      System.exit(1);
