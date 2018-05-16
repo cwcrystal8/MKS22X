@@ -2,6 +2,10 @@ import java.util.LinkedList;
 
 public class Calculator{
   public static double eval(String exp){
+    exp = exp.trim();
+    if(exp.indexOf(" ") == -1){
+      return Double.parseDouble(exp);
+    }
     LinkedList<String> stack = new LinkedList<>();
     String temp = "";
     for(int i = 0; i < exp.length(); i++){
@@ -55,5 +59,6 @@ public class Calculator{
     System.out.println(eval("6 6 +"));
     System.out.println(eval("11 3 - 4 + 2.5 *"));
     System.out.println(eval("8 2 + 99 9 - * 2 + 9 -"));
+    
   }
 }
