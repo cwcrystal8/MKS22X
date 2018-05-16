@@ -1,9 +1,9 @@
-public class RunningMedians{
+public class RunningMedian{
   private MyHeap<Double> minHeap;
   private MyHeap<Double> maxHeap;
 
   @SuppressWarnings("unchecked")
-  public RunningMedians(double[] a){
+  public RunningMedian(double[] a){
     minHeap = new MyHeap<>();
     maxHeap = new MyHeap<>(false);
     for(int i = 0; i < a.length; i++){
@@ -49,7 +49,7 @@ public class RunningMedians{
 
   public static void main(String[] args){
     double[] data = {1.0,3.0,5.0,4.0,2.0};
-    RunningMedians a = new RunningMedians(data);
+    RunningMedian a = new RunningMedian(data);
     System.out.println(a.getMedian()); //3
 //    System.out.println(a.minHeap);
 //    System.out.println(a.maxHeap);
