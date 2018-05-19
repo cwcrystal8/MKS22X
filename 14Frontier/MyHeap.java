@@ -52,7 +52,7 @@ public class MyHeap<T extends Comparable<T>> {
   public T remove(){
     T ans = data[0];
     data[0] = data[size - 1];
-    data[size] = null;
+    data[size - 1] = null;
     int pos = 0;
     size--;
     while( ((2 * pos + 1 < size) &&

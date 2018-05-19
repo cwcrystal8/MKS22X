@@ -3,6 +3,7 @@ import java.util.*;
 public class FrontierPriorityQueue implements Frontier{
   private MyHeap<Location> frontier;
 
+
   public FrontierPriorityQueue(){
     frontier = new MyHeap<>(false);
   }
