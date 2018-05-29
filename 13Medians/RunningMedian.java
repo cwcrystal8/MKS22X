@@ -11,6 +11,16 @@ public class RunningMedian{
     }
   }
 
+  @SuppressWarnings("unchecked")
+  public RunningMedian(){
+    minHeap = new MyHeap<>();
+    maxHeap = new MyHeap<>(false);
+  }
+
+  public int size(){
+      return minHeap.size() + maxHeap.size();
+  }
+
   public void add(Double a){
     if(minHeap.size() == 0 && maxHeap.size() == 0){
       minHeap.add(a);
